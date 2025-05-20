@@ -7,8 +7,8 @@ WizRat is a Python-based Remote Administration Tool (RAT) that provides secure r
 - Real-time remote system monitoring
 - Live camera streaming capabilities 
 - Remote screenshot functionality
-- Custom command execution
-- Modern GUI with dark theme
+- Custom command execution with remote shell access
+- Real-Time keystroke capturing and streaming from remote system
 - Secure socket-based communication
 - Screenshot viewer
 - Configurable server/client settings
