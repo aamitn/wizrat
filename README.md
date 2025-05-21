@@ -2,6 +2,18 @@
 
 WizRat is a Python-based Remote Administration Tool (RAT) that provides secure remote system management capabilities through a graphical user interface.
 
+
+## Binary Release
+
+| **Platform** | **Release**                                                         | **Format** |
+|--------------|---------------------------------------------------------------------|------------|
+| Windows      | [WinRelease](https://github.com/aamitn/wizrat/releases/tag/0.6.0)   | .exe       |
+| Linux        | [TBA](#)                                                            | .pyc       |
+| MacOS        | [TBA](#)                                                            | .pyc       |
+
+
+Run `plant.cmd` / `plant_admin.cmd` from same directory where `client.exe` is located to push it inside target/client system
+
 ## Features
 
 - Real-time remote system monitoring
@@ -28,7 +40,7 @@ WizRat is a Python-based Remote Administration Tool (RAT) that provides secure r
 
 1. Clone the repository:
 ```sh
-git clone https://github.com/yourusername/wizrat.git
+git clone https://github.com/aamitn/wizrat.git
 cd wizrat
 ```
 
