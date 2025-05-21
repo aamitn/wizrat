@@ -1,5 +1,5 @@
 # WizRat - Remote Administration Tool
-
+<img src="https://github.com/aamitn/wizrat/blob/7833f604cc688ea41223964a1a9f6840ab31eeda/assets/icon.png">
 WizRat is a Python-based Remote Administration Tool (RAT) that provides secure remote system management capabilities through a graphical user interface.
 
 
@@ -13,6 +13,8 @@ WizRat is a Python-based Remote Administration Tool (RAT) that provides secure r
 
 
 Run `plant.cmd` / `plant_admin.cmd` from same directory where `client.exe` is located to push it inside target/client system
+
+## Linters Used : Pylint with autopep8
 
 ## Features
 

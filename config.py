@@ -1,13 +1,13 @@
 import requests
 
-GIST_URL= "https://gist.githubusercontent.com/aamitn/c37f5f71ca59814ff800c9730bac47f0/raw"
+GIST_URL = "https://gist.githubusercontent.com/aamitn/c37f5f71ca59814ff800c9730bac47f0/raw"
 
 # Fallback defaults
 defaults = {
     "GLOBAL_IP": "127.0.0.1",
     "GLOBAL_PORT": 12345,
     "GLOBAL_CAM_PORT": 1234,
-    
+
     "CAM_FPS": 30,
     "CAM_IMAGE_QUALITY": 80,
     "CAM_FRAME_WIDTH": 480
@@ -24,10 +24,12 @@ GLOBAL_PORT = config.get("GLOBAL_PORT", defaults["GLOBAL_PORT"])
 GLOBAL_CAM_PORT = config.get("GLOBAL_CAM_PORT", defaults["GLOBAL_CAM_PORT"])
 
 CAM_FPS = config.get("CAM_FPS", defaults["CAM_FPS"])
-CAM_IMAGE_QUALITY = config.get("CAM_IMAGE_QUALITY", defaults["CAM_IMAGE_QUALITY"])
+CAM_IMAGE_QUALITY = config.get(
+    "CAM_IMAGE_QUALITY",
+    defaults["CAM_IMAGE_QUALITY"])
 CAM_FRAME_WIDTH = config.get("CAM_FRAME_WIDTH", defaults["CAM_FRAME_WIDTH"])
 
-# server.py 
+# server.py
 SERVER_IP = GLOBAL_IP
 SERVER_PORT = GLOBAL_PORT
 
@@ -39,7 +41,6 @@ CAM_SERVER_PORT = GLOBAL_CAM_PORT
 CLIENT_IP = GLOBAL_IP
 CLIENT_PORT = GLOBAL_PORT
 CAM_CLIENT_PORT = GLOBAL_CAM_PORT
-
 
 
 ICON_BASE64 = """

