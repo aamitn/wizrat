@@ -28,13 +28,7 @@ Run `plant.cmd` / `plant_admin.cmd` from same directory where `client.exe` is lo
 ## Prerequisites
 
 - Python 3.x
-- Required packages (install via `pip install -r requirements.txt`):
-  - opencv-python
-  - pillow 
-  - imutils
-  - keyboard
-  - mss
-  - psutil
+- Dependencies (install via `pip install -r requirements.txt`):
 
 ## Installation
 
